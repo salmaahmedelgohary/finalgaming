@@ -6,7 +6,7 @@ public class PlayerController2 : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpHeight = 10f;
-
+  
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode L;
     public KeyCode R;
