@@ -10,9 +10,9 @@ public class NovaDialogue : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            string[] dialogue = {"hhhhhhhhhhhhhhhhhhhhhhhh",
-            "ddddddddddddddddddddddddddddddddddd","ggggggggggggggggggggggggggggggg",
-            "g=oooooooooooooooooooooooooo","fffffffffffffffffffffffffffffff"
+            string[] dialogue = {"Zero: Who are you? What is this place?",
+            "Nova: I am a stabilizer protocol. You can call me Nova. This... is a broken sanctuary. Your sanctuary.","Zero: I don't remember anything. Just... falling. And then I could change the fall.",
+            "Nova: \"This realm's rules are shattered. Your control over gravity is the only logic that remains.","Nova: \"I will help you navigate the collapse. But you must trust me."
             };
             dialogueManager.SetSentences(dialogue);
             StartCoroutine(dialogueManager.TypeDialogue());
