@@ -9,11 +9,11 @@ public class EnemyDamage : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            PlayerHealth playerHealth = collision.collider.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            PlayerStats3 playerStats = collision.collider.GetComponent<PlayerStats3>();
+            if (playerStats != null)
             {
                 Debug.Log("Enemy hit player (collision)");
-                playerHealth.TakeDamage(damage);
+                playerStats.Take(damage);
             }
         }
     }
