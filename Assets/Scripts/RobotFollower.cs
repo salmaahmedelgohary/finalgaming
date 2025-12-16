@@ -147,21 +147,43 @@ public class RobotFollower : MonoBehaviour
 
     void Shoot()
     {
-        Cursor.lockState = CursorLockMode.None;
+        // Keeping your custom mouse cursor lock state change and animation trigger
+    Cursor.lockState = CursorLockMode.None;
+    
+    if (animator != null)
+    {
+        animator.SetTrigger("Shoot");
+    }
+    
+    if (projectilePrefab != null && firePoint != null)
+    {
+        // 1. Calculate the direction vector from the fire point towards the mouse position.
+        // THIS IS THE CRITICAL AIMING LOGIC YOU ALREADY HAD.
+        Vector2 shootDirection = (mousePosition - (Vector3)firePoint.position).normalized;
         
-        if (animator != null)
-        {
-            animator.SetTrigger("Shoot");
-        }
+        // --- INSTANTIATION ---
         
-        if (projectilePrefab != null && firePoint != null)
+        // 2. Instantiate the projectile. We will use the calculated shootAngle for rotation.
+        float shootAngle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+        Quaternion shootRotation = Quaternion.Euler(0, 0, shootAngle);
+        
+        // Instantiate the object
+        GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, shootRotation);
+        
+        // 3. Get the Bullet script
+        Bullet bulletScript = projectileGO.GetComponent<Bullet>();
+
+        if (bulletScript != null)
         {
-            Vector2 shootDirection = (mousePosition - firePoint.position).normalized;
-            float shootAngle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
-            Quaternion shootRotation = Quaternion.Euler(0, 0, shootAngle);
-            
-            Instantiate(projectilePrefab, firePoint.position, shootRotation);
+            // 4. Use the Launch method to set the velocity once
+            // This is the key change to match the established velocity-based movement logic.
+            bulletScript.Launch(shootDirection);
         }
+        else
+        {
+            Debug.LogError("Bullet script is missing or misnamed on the projectilePrefab!");
+        }
+    }
     }
     
     public void ResetSmoothing()
