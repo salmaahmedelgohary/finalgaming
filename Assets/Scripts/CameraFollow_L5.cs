@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraFollow_L5 : MonoBehaviour
 {
-
+// Target to follow
     public Transform Target;
     public float Cameraspeed;
 
