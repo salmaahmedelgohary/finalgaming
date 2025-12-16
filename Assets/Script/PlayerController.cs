@@ -22,17 +22,14 @@ public class PlayerController : MonoBehaviour
 
     private bool grounded;
     private bool isJumping;
-    private bool onCeiling = false;
-
-    private Vector3 respawnPoint;
-
+    private bool onCeiling = false;       // NEW
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        respawnPoint = transform.position;
+
         if (rb == null) Debug.LogError("Rigidbody2D component missing!");
         if (anim == null) Debug.LogError("Animator component missing!");
         if (controller == null) Debug.LogError("Ground Check transform not assigned!");
@@ -42,12 +39,6 @@ public class PlayerController : MonoBehaviour
     {
         HandleInput();
         UpdateAnimations();
-
-        if (transform.position.y < -10f) 
-        {
-            Respawn();
-        }
-
     }
 
     void HandleInput()
@@ -144,22 +135,4 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawWireSphere(controller.position, groundCheckRadius);
         }
     }
-
-
-    public void SetCheckpoint(Vector3 newCheckpoint)
-    {
-        respawnPoint = newCheckpoint;
-    }
-
-    public void Respawn()
-    {
-        transform.position = respawnPoint;
-        // Optional: reset velocity if using Rigidbody2D
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-        }
-    }
-
 }
